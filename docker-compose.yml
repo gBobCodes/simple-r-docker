@@ -1,0 +1,49 @@
+# DEVELOPMENT ENV ONLY. NOT PRODUCTION.
+version: '3.7'
+
+services:
+  # R analysis app
+  ranalysis:
+    build: ./rapp
+    # command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./rapp/:/home/analysis
+    env_file:
+      - ./env.simple
+    networks:
+      - r-network
+    # depends_on:
+    #   - db
+    
+  # DB administration tool
+#   adminer:
+#     image: adminer
+#     restart: always
+#     ports:
+#       - ${DB_ADMIN_PORT}:8080
+#     networks:
+#       - r-network
+  
+  # Postgres DB
+#   db:
+#     image: postgres:12.0-alpine
+#     restart: unless-stopped
+#     volumes:
+#       - r_postgres_data:/var/lib/postgresql/data/
+#     environment:
+#       - POSTGRES_USER=${SQL_USER}
+#       - POSTGRES_PASSWORD=${SQL_PASSWORD}
+#       - POSTGRES_DB=${SQL_DATABASE}
+#     ports:
+#       - ${SQL_PORT}:5432
+#     networks:
+#       - r-network
+
+# Docker Networks
+networks:
+  r-network:
+    driver: bridge
+
+# Save the data when containers are shut down
+# volumes:
+#   r_postgres_data:
