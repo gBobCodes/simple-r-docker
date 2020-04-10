@@ -5,7 +5,7 @@ services:
   # R analysis app
   ranalysis:
     build: ./rapp
-    command: R -e "source('${MAIN_R_SCRIPT}')"
+    command: R ${R_OPTIONS} "source('${MAIN_R_SCRIPT}')"
     volumes:
       - ./rapp/:/home/analysis
     env_file:

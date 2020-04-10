@@ -8,14 +8,15 @@ $ cd simple-r-docker
 
 Build Docker Images
 ```
-$ docker-compose up -d --build
+$ docker-compose build
 ```
 
-Acces the R container
+Run the R script in the docker container
 ```
-$ docker-compose exec ranalysis /bin/bash
+$ docker-compose up
 ```
 
+You should see information about a CSV file.
 
-Edit the source code on your local device, not in the R container.
+Edit the R script on your local device, not in the R container.
 
