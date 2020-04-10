@@ -5,11 +5,11 @@ services:
   # R analysis app
   ranalysis:
     build: ./rapp
-    # command: python manage.py runserver 0.0.0.0:8000
+    command: R -e "source('${MAIN_R_SCRIPT}')"
     volumes:
       - ./rapp/:/home/analysis
     env_file:
-      - ./env.simple
+      - ./.env
     networks:
       - r-network
     # depends_on:
