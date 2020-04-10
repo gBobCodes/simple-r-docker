@@ -20,3 +20,4 @@ You should see information about a CSV file.
 
 Edit the R script on your local device, not in the R container.
 
+NOTE: The DB connectors have not yet been tested.

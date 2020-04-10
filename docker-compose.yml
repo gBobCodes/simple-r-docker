@@ -13,7 +13,7 @@ services:
     networks:
       - r-network
     # depends_on:
-    #   - db
+    #   - pdb
     
   # DB administration tool
 #   adminer:
@@ -24,8 +24,8 @@ services:
 #     networks:
 #       - r-network
   
-  # Postgres DB
-#   db:
+  # Postgres DB Service
+#   pdb:
 #     image: postgres:12.0-alpine
 #     restart: unless-stopped
 #     volumes:
@@ -39,6 +39,26 @@ services:
 #     networks:
 #       - r-network
 
+  # MySQL DB Service
+  # mydb:
+  #   image: mysql:5.7
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - ${MYSQL_DB_PORT}:3306
+  #   environment:
+  #     MYSQL_DATABASE: ${MYSQL_DB_DATABASE}
+  #     MYSQL_USER: ${MYSQL_DB_USERNAME}
+  #     MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_DB_ROOTPASSWORD}
+  #     SERVICE_NAME: mysql
+  #     SERVICE_TAGS: dev
+  #   volumes:
+  #     - r_mysql_data:/var/lib/mysql/
+  #     - ./mysql/my.cnf:/etc/mysql/my.cnf
+  #   networks:
+  #     - r-network
+
 # Docker Networks
 networks:
   r-network:
@@ -47,3 +67,4 @@ networks:
 # Save the data when containers are shut down
 # volumes:
 #   r_postgres_data:
+#   r_mysql_data:
