@@ -3,7 +3,7 @@ version: '3.7'
 
 services:
   # R analysis app
-  ranalysis:
+  app:
     build: ./rapp
     command: R ${R_OPTIONS} "source('${MAIN_R_SCRIPT}')"
     volumes:
@@ -13,19 +13,33 @@ services:
     networks:
       - r-network
     # depends_on:
-    #   - pdb
+    #   - postgresdb
+    #   - mysqldb
     
+  # Rstudio
+  rstudio:
+    image: rocker/rstudio
+    environment:
+      - PASSWORD=${RSTUDIO_PASSWORD}
+    restart: unless-stopped
+    ports:
+      - ${RSTUDIO_PORT}:8787
+    volumes:
+        - ./rapp/:/home/rstudio
+    networks:
+      - r-network
+
   # DB administration tool
-#   adminer:
-#     image: adminer
-#     restart: always
-#     ports:
-#       - ${DB_ADMIN_PORT}:8080
-#     networks:
-#       - r-network
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - ${DB_ADMIN_PORT}:8080
+    networks:
+      - r-network
   
   # Postgres DB Service
-#   pdb:
+#   postgresdb:
 #     image: postgres:12.0-alpine
 #     restart: unless-stopped
 #     volumes:
@@ -40,7 +54,7 @@ services:
 #       - r-network
 
   # MySQL DB Service
-  # mydb:
+  # mysqldb:
   #   image: mysql:5.7
   #   restart: unless-stopped
   #   tty: true
